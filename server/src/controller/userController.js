@@ -7,7 +7,7 @@ export const userRegister = async (req, res) => {
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: {
-        email,
+        email,  
       },
     });
 
@@ -38,3 +38,31 @@ export const userRegister = async (req, res) => {
     });
   }
 };
+
+export const userLogin = async (req,res)=>{
+  try {
+    const {user , email} = req.body();
+    const existingUser = await prisma.user.findUnique({
+      where : {
+        email,
+      }
+    })
+    if(!existingUser){
+      res.status(400).json({
+        success : false,
+        message : "User not found"
+      })
+    }
+    const user = await prisma.user.create({
+      data:{
+        name,
+        email
+      }
+    })
+  } catch (error) {
+    res.status(500).json({
+      success : false,
+      error : error.message
+    })
+  }
+}

@@ -28,7 +28,7 @@ model Feedback {
   emotion String?
   emotionScore Int
   
-  status String?
+  status String? @default("Pending")
   aiReply String?
 
   createdAt DateTime @default(now())

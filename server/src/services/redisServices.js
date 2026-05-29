@@ -5,9 +5,9 @@ export const addToQueue = async(
     emotionScore
 )=>{
     await client.zAdd("feedbackQueue",{
-        id : feedbackId,
         score : emotionScore,
         value : feedbackId
     })
     console.log("Send to redis")
 }
+
