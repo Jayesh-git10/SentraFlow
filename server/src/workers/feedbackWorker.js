@@ -15,10 +15,10 @@ export const startWorker = () => {
             console.log("Queue Empty");
             return
         }
-        const parsed = JSON.parse(data[0]);
+        const feedbackId = data[0];
         const feedback = await prisma.feedback.findUnique({
             where: {
-                id: parsed.feedbackId
+                id: feedbackId
             }
         });
         console.log("Processing : ", feedback.title);
