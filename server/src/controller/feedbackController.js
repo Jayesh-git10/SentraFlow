@@ -1,4 +1,5 @@
 import prisma from "../config/db";
+import { calculateEmotionScore } from "../services/geminiServices";
 import { addToQueue } from "../services/redisServices";
 
 export const getFeedback = async(req,res)=>{
@@ -15,17 +16,21 @@ export const getFeedback = async(req,res)=>{
 export const  createFeedback = async(req,res)=>{
     try {
         const {title , content , authorId} = req.body;
+
+        //-------- AI Generates status and emotionScore------
+        const {emotion, emotionScore} = await calculateEmotionScore(content)
+        //--------
         const feedback = await prisma.feedback.create({
             data : {
                 title , 
                 content,
-                emotion  : "neutral",
-                emotionScore : 50,
+                emotion  ,
+                emotionScore ,
                 status : "pending",
                 authorId
             }
         })
-        
+        console.log(feedback.emotion , feedback.emotionScore);
         //--------------Adding to queue---------
         await addToQueue(
             feedback.id,
