@@ -1,5 +1,6 @@
 import client from "../config/redis";
 import prisma from "../config/db";
+import { solveIssue } from "../services/geminiServices";
 
 export const startWorker = () => {
     setInterval(async () => {
@@ -25,8 +26,9 @@ export const startWorker = () => {
 
 
         /* AI solves the issue */
-
-
+        const content = feedback.content;
+        const solution = await solveIssue(content);
+        console.log(solution);
         await prisma.feedback.update({
             where: {
                 id: feedback.id
