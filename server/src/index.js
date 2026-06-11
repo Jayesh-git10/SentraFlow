@@ -3,11 +3,13 @@ import prisma from "./config/db.js";
 import router from "./routes/feedbackRoutes.js";
 import userRouter from "./routes/userRouter.js";
 import { startWorker } from "./workers/feedbackWorker.js";
+import cookieParser from "cookie-parser"
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json())
+app.use(cookieParser())
 
 startWorker();
 

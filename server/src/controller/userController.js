@@ -1,5 +1,6 @@
 import prisma from "../config/db.js";
 import bcrypt from "bcrypt"
+import { generateTokens } from "../utils/generateTokens.js";
 
 export const userRegister = async (req, res) => {
   try {
@@ -35,7 +36,7 @@ export const userRegister = async (req, res) => {
       },
     });
 
-    const {hashedPassword:_,...safeUser} = user; 
+    const {password:_,...safeUser} = user; 
 
     res.status(201).json({
       success: true,
@@ -85,6 +86,16 @@ export const userLogin = async (req,res)=>{
         message : "Wrong password"
       })
     }
+
+    const token = generateTokens(existingUser.id);
+
+    res.cookie("token",token,{
+      httpOnly : true,
+      secure : process.env.NODE_ENV === 'production',
+      maxAge : 7*24*60*60*1000
+    })
+
+
     return res.status(200).json({
       success : true,
       message : "Login Successful",
