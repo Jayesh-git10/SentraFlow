@@ -27,7 +27,7 @@ export const  createFeedback = async(req,res)=>{
                 emotion  ,
                 emotionScore ,
                 status : "pending",
-                authorId
+                authorId : req.user.userId
             }
         })
         console.log(feedback.emotion , feedback.emotionScore);
@@ -50,3 +50,22 @@ export const  createFeedback = async(req,res)=>{
     }
 }
 
+export const getUserFeedback = async (req, res) => {
+  try {
+    const feedbacks = await prisma.feedback.findMany({
+      where: {
+        authorId: req.user.userId,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      feedbacks,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
