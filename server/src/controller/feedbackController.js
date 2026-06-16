@@ -69,3 +69,41 @@ export const getUserFeedback = async (req, res) => {
     });
   }
 };
+
+export const deleteFeedback = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const feedback = await prisma.feedback.findUnique({
+      where: { id },
+    });
+
+    if (!feedback) {
+      return res.status(404).json({
+        success: false,
+        message: "Feedback not found",
+      });
+    }
+
+    if (feedback.authorId !== req.user.userId) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized to delete this feedback",
+      });
+    }
+
+    await prisma.feedback.delete({
+      where: { id },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Feedback deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+

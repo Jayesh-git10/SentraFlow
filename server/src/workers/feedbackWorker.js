@@ -27,23 +27,38 @@ export const startWorker = async () => {
             }
         });
         
-        console.log("Processing : ", feedback.title);
+        try {
+            console.log("Processing : ", feedback.title);
 
-
-        /* AI solves the issue */
-        const content = feedback.content;
-        const solution = await solveIssue(content);
-        console.log(solution);   
-        await prisma.feedback.update({
-            where: {
-                id: feedback.id
-            },
-            data: {
-                status: "resolved"
+            /* AI solves the issue */
+            const content = feedback.content;
+            const solution = await solveIssue(content);
+            console.log(solution);   
+            await prisma.feedback.update({
+                where: {
+                    id: feedback.id
+                },
+                data: {
+                    status: "resolved",
+                    aiReply: solution
+                }
+            });
+        } catch (error) {
+            console.error("Error processing feedback in worker:", error.message);
+            try {
+                await prisma.feedback.update({
+                    where: {
+                        id: feedback.id
+                    },
+                    data: {
+                        status: "failed",
+                        aiReply: `AI Generation Failed: ${error.message}`
+                    }
+                });
+            } catch (dbError) {
+                console.error("Failed to update error status in DB:", dbError.message);
             }
-        });
+        }
         
     }
 }
-
-
