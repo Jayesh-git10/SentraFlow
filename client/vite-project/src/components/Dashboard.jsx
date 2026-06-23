@@ -280,7 +280,7 @@ export default function Dashboard({ currentUser, onLogout, showToast }) {
               </div>
 
               {/* Gravity & Sentiment Breakdowns */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", flexWrap: "wrap", textAlign: "left" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", textAlign: "left" }}>
                 
                 {/* Sentiment Distribution */}
                 <div className="glass-card" style={{ padding: "1.5rem" }}>
