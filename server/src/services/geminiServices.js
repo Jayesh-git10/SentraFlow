@@ -2,7 +2,7 @@ import { ai } from "../config/gemini.js"
 
 export async function calculateEmotionScore(feedback) {
     const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-2.5-flash",
         contents: `
         Analyze the following feedback and return only JSON.
 
