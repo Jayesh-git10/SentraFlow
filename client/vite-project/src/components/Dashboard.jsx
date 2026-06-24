@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import FeedbackForm from "./FeedbackForm";
 import FeedbackList from "./FeedbackList";
+import { API_BASE } from "../apiBase";
 
 export default function Dashboard({ currentUser, onLogout, showToast }) {
   const [activeTab, setActiveTab] = useState("analytics");
@@ -25,7 +26,7 @@ export default function Dashboard({ currentUser, onLogout, showToast }) {
   const fetchStats = async () => {
     try {
       // Fetch all feedbacks to compute global dashboard metrics
-      const response = await fetch("/api/feedback", {
+      const response = await fetch(`${API_BASE}/api/feedback`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +89,7 @@ export default function Dashboard({ currentUser, onLogout, showToast }) {
 
   const handleLogoutClick = async () => {
     try {
-      const response = await fetch("/api/user/logout", {
+      const response = await fetch(`${API_BASE}/api/user/logout`, {
         method: "POST",
       });
 

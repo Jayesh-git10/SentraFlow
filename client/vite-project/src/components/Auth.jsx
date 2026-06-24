@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { KeyRound, Mail, User, ShieldCheck } from "lucide-react";
+import { API_BASE } from "../apiBase";
 
 export default function Auth({ onAuthSuccess, showToast }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -42,7 +43,7 @@ export default function Auth({ onAuthSuccess, showToast }) {
     setLoading(true);
     setError("");
 
-    const endpoint = isLogin ? "/api/user/login" : "/api/user";
+    const endpoint = isLogin ? `${API_BASE}/api/user/login` : `${API_BASE}/api/user`;
     const body = isLogin 
       ? { email: formData.email, password: formData.password } 
       : { name: formData.name, email: formData.email, password: formData.password };

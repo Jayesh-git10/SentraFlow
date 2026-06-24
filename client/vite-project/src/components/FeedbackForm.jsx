@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Send, AlertCircle, FileText, Info } from "lucide-react";
+import { API_BASE } from "../apiBase";
 
 export default function FeedbackForm({ onSubmitSuccess, showToast }) {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ export default function FeedbackForm({ onSubmitSuccess, showToast }) {
     setError("");
 
     try {
-      const response = await fetch("/api/feedback/create", {
+      const response = await fetch(`${API_BASE}/api/feedback/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

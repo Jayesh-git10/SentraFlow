@@ -3,6 +3,7 @@ import {
   Trash2, MessageSquare, Sparkles, Brain, Clock, 
   CheckCircle, XCircle, Search, Filter, RefreshCw 
 } from "lucide-react";
+import { API_BASE } from "../apiBase";
 
 export default function FeedbackList({ isAdminView, currentUser, showToast, refreshTrigger }) {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -16,7 +17,7 @@ export default function FeedbackList({ isAdminView, currentUser, showToast, refr
     if (!isPoll) setLoading(true);
     
     try {
-      const endpoint = isAdminView ? "/api/feedback" : "/api/feedback/user-feedback";
+      const endpoint = isAdminView ? `${API_BASE}/api/feedback` : `${API_BASE}/api/feedback/user-feedback`;
       const method = isAdminView ? "GET" : "POST";
       
       const response = await fetch(endpoint, {
@@ -66,7 +67,7 @@ export default function FeedbackList({ isAdminView, currentUser, showToast, refr
     if (!window.confirm("Are you sure you want to delete this feedback?")) return;
 
     try {
-      const response = await fetch(`/api/feedback/${id}`, {
+      const response = await fetch(`${API_BASE}/api/feedback/${id}`, {
         method: "DELETE",
       });
 
