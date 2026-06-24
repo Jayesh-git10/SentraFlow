@@ -89,23 +89,22 @@ export const userLogin = async (req,res)=>{
 
     const token = generateTokens(existingUser.id);
 
-    res.cookie("token",token,{
-      httpOnly : true,
-      secure : true,
-      sameSite: "none",
-      maxAge : 7*24*60*60*1000
-    })
-
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
-      success : true,
-      message : "Login Successful",
-      user:{
-        id : existingUser.id,
-        name : existingUser.name,
-        email : existingUser.email
-      }
-    })
+      success: true,
+      message: "Login Successful",
+      user: {
+        id: existingUser.id,
+        name: existingUser.name,
+        email: existingUser.email,
+      },
+    });
 
   } catch (error) {
     res.status(500).json({
