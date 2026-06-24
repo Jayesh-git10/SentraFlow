@@ -4,7 +4,7 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/',protect,getFeedback);
+router.get('/',getFeedback);
 router.post('/create',protect,createFeedback);
 router.post('/user-feedback',protect,getUserFeedback);
 router.delete('/:id',protect,deleteFeedback);
