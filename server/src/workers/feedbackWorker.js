@@ -1,6 +1,6 @@
-import client from "../config/redis";
-import prisma from "../config/db";
-import { solveIssue } from "../services/geminiServices";
+import client from "../config/redis.js";
+import prisma from "../config/db.js";
+import { solveIssue } from "../services/geminiServices.js";
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 

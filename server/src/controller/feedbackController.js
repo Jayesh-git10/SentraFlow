@@ -1,6 +1,6 @@
-import prisma from "../config/db";
-import { calculateEmotionScore } from "../services/geminiServices";
-import { addToQueue } from "../services/redisServices";
+import prisma from "../config/db.js";
+import { calculateEmotionScore } from "../services/geminiServices.js";
+import { addToQueue } from "../services/redisServices.js";
 
 export const getFeedback = async(req,res)=>{
     try {
