@@ -1,4 +1,4 @@
-import { ai } from "../config/gemini"
+import { ai } from "../config/gemini.js"
 
 export async function calculateEmotionScore(feedback) {
     const response = await ai.models.generateContent({
