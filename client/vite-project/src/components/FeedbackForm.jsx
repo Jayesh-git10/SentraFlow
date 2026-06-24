@@ -34,6 +34,7 @@ export default function FeedbackForm({ onSubmitSuccess, showToast }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           title: formData.title.trim(),
           content: formData.content.trim(),

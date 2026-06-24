@@ -31,6 +31,7 @@ export default function Dashboard({ currentUser, onLogout, showToast }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
 
       if (!response.ok) return;
@@ -91,6 +92,7 @@ export default function Dashboard({ currentUser, onLogout, showToast }) {
     try {
       const response = await fetch(`${API_BASE}/api/user/logout`, {
         method: "POST",
+        credentials: "include",
       });
 
       const data = await response.json();

@@ -25,6 +25,7 @@ export default function FeedbackList({ isAdminView, currentUser, showToast, refr
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
 
       const data = await response.json();
@@ -69,6 +70,7 @@ export default function FeedbackList({ isAdminView, currentUser, showToast, refr
     try {
       const response = await fetch(`${API_BASE}/api/feedback/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       const data = await response.json();

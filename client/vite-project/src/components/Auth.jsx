@@ -54,6 +54,7 @@ export default function Auth({ onAuthSuccess, showToast }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(body),
       });
 
