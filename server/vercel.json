@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "^/api/(.*)", "dest": "/src/$1" }
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "REDIS_URL": "@redis_url",
+    "GEMINI_API_KEY": "@gemini_api_key"
+  }
+}
